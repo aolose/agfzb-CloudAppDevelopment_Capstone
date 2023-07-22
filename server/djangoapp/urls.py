@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import static_page_view, login_request, registration_request
+from .views import static_page_view, login_request, logout_request, registration_request
 from django.views.generic import TemplateView
 
 app_name = 'djangoapp'
@@ -19,7 +19,7 @@ urlpatterns = [
                   path('registration/', registration_request, name='registration'),
                   path('login/', login_request, name='login'),
                   # path for logout
-                  path('logout/', login_request, name='logout'),
+                  path('logout/', logout_request, name='logout'),
                   # path(route='', view=views.get_dealerships, name='index'),
 
                   # path for dealer reviews view
