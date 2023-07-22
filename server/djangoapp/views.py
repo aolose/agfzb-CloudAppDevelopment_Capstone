@@ -11,6 +11,7 @@ import json
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+index = 'djangoapp/static_page.html'
 
 
 # Create your views here.
@@ -28,21 +29,52 @@ def static_page_view(req):
 
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
+def login_request(request):
+    context = {}
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['psw']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(index)
+    return render(request, 'djangoapp/login.html', context)
+
+
 # ...
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
+def logout_request(request):
+    context = {}
+    logout(request)
+    return redirect(index, context)
+
+
 # ...
 
 # Create a `registration_request` view to handle sign up request
 # def registration_request(request):
+def registration_request(request):
+    context = {}
+    if request.method == "POST":
+        usr = request.POST['us']
+        pwd = request.POST['pw']
+        mail = request.POST['em']
+        user = User.objects.create_user(usr, mail, pwd)
+        user.save()
+        context = {"success": usr+" created!"}
+        return render(request, index, context)
+    return render(request, 'djangoapp/registration.html', context)
+
+
 # ...
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     context = {}
     if request.method == "GET":
-        return render(request, 'djangoapp/index.html', context)
+        return render(request, index, context)
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
