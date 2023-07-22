@@ -8,8 +8,7 @@ app_name = 'djangoapp'
 urlpatterns = [
                   # route is a string contains a URL pattern
                   # view refers to the view function
-                  # name the URL
-                  path('', static_page_view, name='index'),
+                  path('', TemplateView.as_view(template_name='djangoapp/index.html'), name='index'),
                   # path for about view
                   path('about/', TemplateView.as_view(template_name='djangoapp/about.html'), name='about'),
                   # path for contact us view

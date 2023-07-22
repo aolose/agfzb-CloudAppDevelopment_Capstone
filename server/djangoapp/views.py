@@ -17,7 +17,7 @@ from server.djangoapp.restapis import get_dealers_from_cf, get_dealer_reviews_fr
 logger = logging.getLogger(__name__)
 index = 'djangoapp/static_page.html'
 endpoint = 'https://us-south.functions.appdomain.cloud/api/v1/web/5d2b2cf2-6c7f-4ce3-b0e5-ae9a2958758d/dealership-package/'
-ep_dealership = endpoint + 'dealership'
+ep_dealership = endpoint + 'dealer'
 ep_review = endpoint + 'review'
 
 
