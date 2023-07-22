@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
@@ -15,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 # Create your views here.
+def static_page_view(req):
+    return render(req, 'djangoapp/static_page.html')
 
 
 # Create an `about` view to render a static about page
@@ -23,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 # Create a `contact` view to return a static contact page
-#def contact(request):
+# def contact(request):
 
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
@@ -43,7 +44,6 @@ def get_dealerships(request):
     if request.method == "GET":
         return render(request, 'djangoapp/index.html', context)
 
-
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
 # ...
@@ -51,4 +51,3 @@ def get_dealerships(request):
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
-
