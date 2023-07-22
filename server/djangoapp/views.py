@@ -16,7 +16,9 @@ from server.djangoapp.restapis import get_dealers_from_cf, get_dealer_reviews_fr
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 index = 'djangoapp/static_page.html'
-service_url = 'https://9cd27bd5-6325-458d-9236-f7ecbaed802c-bluemix.cloudantnosqldb.appdomain.cloud'
+endpoint = 'https://us-south.functions.appdomain.cloud/api/v1/web/5d2b2cf2-6c7f-4ce3-b0e5-ae9a2958758d/dealership-package/'
+ep_dealership = endpoint + 'dealership'
+ep_review = endpoint + 'review'
 
 
 # Create your views here.
@@ -78,8 +80,7 @@ def registration_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {}
-        url = service_url + '/dealership'
-        dealerships = get_dealers_from_cf(url)
+        dealerships = get_dealers_from_cf(ep_dealership)
         context["dealership_list"] = dealerships
         return render(request, 'djangoapp/index.html', context)
 
@@ -91,11 +92,9 @@ def get_dealerships(request):
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
         context = {}
-        url = "https://xxxxxxx/api/review/"
-        reviews = get_dealer_reviews_from_cf(url, dealer_id)
+        reviews = get_dealer_reviews_from_cf(ep_review, dealer_id)
         context["reviews"] = reviews
-        dealer = get_dealer_from_cf_by_id(
-            "https://xxxxxxxx/api/dealership", dealer_id)
+        dealer = get_dealer_from_cf_by_id(ep_dealership, dealer_id)
         context["dealer"] = dealer
         return render(request, 'djangoapp/dealer_details.html', context)
 
@@ -104,15 +103,13 @@ def get_dealer_details(request, dealer_id):
 def add_review(request, dealer_id):
     context = {}
     if request.method == "GET":
-        url = "https://e29b86ca.eu-gb.apigw.appdomain.cloud/api/dealership"
-        dealer = get_dealer_from_cf_by_id(url, dealer_id)
+        dealer = get_dealer_from_cf_by_id(ep_dealership, dealer_id)
         cars = CarModel.objects.filter(dealer_id=dealer_id)
         context["cars"] = cars
         context["dealer"] = dealer
         return render(request, 'djangoapp/add_review.html', context)
 
     if request.method == "POST":
-        url = "https://e29b86ca.eu-gb.apigw.appdomain.cloud/api/review/"
         if 'purchasecheck' in request.POST:
             was_purchased = True
         else:
@@ -133,6 +130,6 @@ def add_review(request, dealer_id):
         review["car_year"] = review_car.year.strftime("%Y")
         json_payload = {}
         json_payload["review"] = review
-        response = post_request(url, json_payload)
+        response = post_request(ep_review, json_payload)
         return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
 # ...
