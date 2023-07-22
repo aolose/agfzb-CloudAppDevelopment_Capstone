@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import static_page_view, login_request, logout_request, registration_request, get_dealer_details
+from .views import static_page_view, login_request, logout_request, registration_request, get_dealer_details, add_review
 from django.views.generic import TemplateView
 
 app_name = 'djangoapp'

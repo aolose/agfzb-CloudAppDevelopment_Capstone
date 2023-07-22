@@ -9,8 +9,8 @@ from datetime import datetime
 import logging
 import json
 
-from server.djangoapp.models import CarModel
-from server.djangoapp.restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, get_dealer_from_cf_by_id, \
+from .models import CarModel
+from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, get_dealer_from_cf_by_id, \
     post_request
 
 # Get an instance of a logger
