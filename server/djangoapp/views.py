@@ -16,8 +16,8 @@ from .restapis import get_dealers_from_cf, get_dealer_from_cf_by_id, \
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 index = 'djangoapp/static_page.html'
-# endpoint = 'https://us-south.functions.appdomain.cloud.ivi.cx/api/v1/web/c224c6df-1c8f-4d73-980b-a78c0fdbe6b6/package/'
-endpoint = 'http://localhost:3000/'
+endpoint = 'https://us-south.functions.appdomain.cloud.ivi.cx/api/v1/web/c224c6df-1c8f-4d73-980b-a78c0fdbe6b6/package/'
+# endpoint = 'http://localhost:3000/'
 ep_dealership = endpoint + 'dealer'
 ep_review = endpoint + 'review'
 
